@@ -1,0 +1,18 @@
+/* ================================================================
+   Responsive — desktop / larger-screen refinements.
+   Mobile-first: the base styles in the other files target small
+   screens; this file only adds min-width tweaks for when the 460px
+   card is centred on a wider viewport.
+================================================================ */
+@media (min-width: 620px) {
+  body {
+    background:
+      radial-gradient(620px 420px at 18% 4%, var(--teal-10), transparent 62%),
+      radial-gradient(520px 400px at 88% 96%, var(--navy-06), transparent 62%),
+      var(--bg);
+  }
+
+  .page {
+    padding: 52px 18px 64px;
+  }
+}

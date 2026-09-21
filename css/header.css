@@ -1,0 +1,75 @@
+/* ================================================================
+   Header — profile header: avatar, name, role, bio, badge
+================================================================ */
+.profile {
+  text-align: center;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin: 2px auto 16px;
+  background: var(--teal-tint);
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 1px var(--border), var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-initials {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--teal-dark);
+}
+
+.profile-name {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px;
+  color: var(--navy);
+}
+
+.clinic-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--teal-dark);
+  margin: 0 0 12px;
+}
+
+.bio {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 36ch;
+  margin: 0 auto 16px;
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--success);
+  background: var(--success-tint);
+  border: 1px solid var(--success-30);
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.verified-badge svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}

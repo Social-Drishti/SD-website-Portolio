@@ -1,0 +1,32 @@
+/* ================================================================
+   CTA — primary CTA buttons (View Projects / Get in Touch).
+   The shared button base (.btn) lives in components.css; these
+   classes apply the page-specific variants.
+================================================================ */
+.cta-group {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.btn-primary {
+  background: var(--teal);
+  color: var(--white);
+  box-shadow: 0 10px 24px -12px var(--teal-60);
+}
+
+.btn-primary:hover {
+  background: var(--teal-dark);
+}
+
+.btn-outline {
+  background: var(--white);
+  color: var(--teal-dark);
+  border: 1.5px solid var(--teal);
+}
+
+.btn-outline:hover {
+  background: var(--teal-tint);
+  border-color: var(--teal-dark);
+}

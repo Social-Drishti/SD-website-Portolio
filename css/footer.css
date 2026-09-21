@@ -1,0 +1,20 @@
+/* ================================================================
+   Footer — divider + copyright
+================================================================ */
+footer {
+  margin-top: 34px;
+  text-align: center;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0 0 16px;
+}
+
+.copyright {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}

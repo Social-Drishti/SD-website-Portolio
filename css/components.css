@@ -1,0 +1,41 @@
+/* ================================================================
+   Components — shared, reusable primitives that the section files
+   (cta.css, links.css, app-card.css, …) assemble.
+================================================================ */
+
+/* Section heading label — reused by the links, services and contact sections */
+.section-label {
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--navy-light);
+  margin: 0 0 10px;
+  padding: 0 2px;
+}
+
+/* Button primitive — every button on the page builds on this */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 650;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+.btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}

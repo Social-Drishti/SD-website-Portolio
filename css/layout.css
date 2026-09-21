@@ -1,0 +1,13 @@
+/* ================================================================
+   Layout — page container, max-width 460px wrapper, section spacing
+   Mobile-first: everything here targets the small-screen base layout.
+================================================================ */
+.page {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 28px 18px 48px;
+}
+
+.section {
+  margin-top: 30px;
+}

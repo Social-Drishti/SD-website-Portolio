@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--
+    Site-level metadata. Values mirror CONFIG.site in the script at the bottom
+    and are refreshed from it on load, so the <title> and meta <description>
+    always match CONFIG. Keep both in sync when you change them.
+  -->
+  <title>SD — Web Developer Portfolio</title>
+  <meta name="description"
+    content="Portfolio of websites built for clients: cafes, clinics, gyms, travel brands and more — fast, responsive and conversion-focused.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0d1f6e">
+
+  <!-- Favicon: assets/icon-192.png (SD mark). Swap the PNG to change it. -->
+  <link rel="icon" type="image/png" href="assets/icon-192.png">
+
+  <!-- Application manifest + home-screen (PWA) support. -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SD Portfolio">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SD — Web Developer Portfolio">
+  <meta property="og:description"
+    content="Websites that work as hard as your business. Fast, responsive, conversion-focused builds for small businesses.">
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="">
+  <meta property="og:site_name" content="SD — Web Developer Portfolio">
+  <meta property="og:locale" content="en">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SD — Web Developer Portfolio">
+  <meta name="twitter:description"
+    content="Websites that work as hard as your business. Fast, responsive, conversion-focused builds for small businesses.">
+
+  <!-- Styles — split by concern across css/. Load order matters here
+       (variables → base → layout → components → sections → responsive). -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/cta.css">
+  <link rel="stylesheet" href="css/links.css">
+  <link rel="stylesheet" href="css/app-card.css">
+  <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="css/social.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="page">
+    <!-- Profile header (semantic landmark) -->
+    <header class="profile" id="profile-mount"></header>
+
+    <main id="main">
+      <!-- Primary CTAs -->
+      <div class="cta-group" id="cta-mount"></div>
+
+      <!-- Projects list (buildLinks renders a <nav> landmark) -->
+      <div class="section" id="projects">
+        <div id="links-mount"></div>
+      </div>
+
+      <!-- Services card -->
+      <div class="section" id="services">
+        <div id="services-mount"></div>
+      </div>
+
+      <!-- Contact card -->
+      <div class="section" id="contact">
+        <div id="contact-mount"></div>
+      </div>
+
+      <!-- Social row (buildSocials renders a <nav> landmark) -->
+      <div class="section" id="socials-mount"></div>
+    </main>
+
+    <footer id="footer-mount"></footer>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ====================================================================
+         CONFIG — single source of truth for all page content.
+         Edit this object to update the page; every section is rendered from
+         it. Anything without a final URL keeps `url: "#"` and `placeholder:
+         true`; on load the console lists every such link that still needs a
+         real address (see audit() at the bottom).
+      ==================================================================== */
+      const CONFIG = {
+        site: {
+          title: "SD — Web Developer Portfolio",
+          description: "Websites that work as hard as your business. Fast, responsive, conversion-focused builds for small businesses.",
+          url: "",                                     // e.g. "https://yourportfolio.vercel.app/" — used for og:url
+          ogImage: "",                                 // absolute URL of a preview image once deployed
+          locale: "en",
+        },
+
+        brand: {
+          themeColor: "#0d1f6e",
+        },
+
+        analytics: {
+          prefix: "sd",                               // data-analytics-id = prefix-kind-slug
+        },
+
+        profile: {
+          name: "SD",
+          role: "Web Developer",
+          bio: "Websites that work as hard as your business. I design and build fast, responsive, conversion-focused sites for small businesses — from cafes and clinics to gyms and travel brands.",
+          badge: true,                                // false hides the "Available for new projects" badge
+          avatar: {
+            initials: "SD",                           // fallback badge while no photo exists
+            image: "assets/icon-192.png",             // swap in "photo.jpg" or a full URL to use an <img>
+            imageAlt: "SD brand mark",
+          },
+        },
+
+        contact: {
+          email: "hello@example.com",                 // placeholder — replace
+          whatsapp: "919876543210",                   // digits only, no "+" — drives the WhatsApp links
+          whatsappDisplay: "+91 98765 43210",
+        },
+
+        ctas: [
+          { label: "View Projects", icon: "arrow", variant: "primary", url: "#projects" },
+          { label: "Get in Touch", icon: "whatsapp", variant: "outline", whatsapp: true },
+        ],
+
+        linksTitle: "Selected Work",
+
+        links: [
+          { icon: "globe", title: "Cafe Crafty", subtitle: "Food & Coffee", url: "https://cafe-crafty.vercel.app/" },
+          { icon: "globe", title: "Aaranya Skin", subtitle: "Skincare", url: "https://aaranya-skin.vercel.app/" },
+          { icon: "globe", title: "Onyx Fitness", subtitle: "Fitness", url: "https://onyx-fitness-eta.vercel.app/" },
+          { icon: "globe", title: "Tripzo", subtitle: "Travel", url: "https://tripzo-tau.vercel.app/" },
+          { icon: "globe", title: "Casa Vero", subtitle: "Interiors", url: "https://casa-vero.vercel.app/" },
+          { icon: "globe", title: "Smart Clean", subtitle: "Cleaning services", url: "https://smart-clean-two.vercel.app/" },
+          { icon: "globe", title: "Akipra Wedding Shoot", subtitle: "Photography", url: "https://akipra-wedding-shoot.vercel.app/" },
+          { icon: "globe", title: "Warpp", subtitle: "Agri-tech", url: "https://warpp-landing-proposal.vercel.app/" },
+          { icon: "globe", title: "Triumph Alliances", subtitle: "Business alliances", url: "https://triumph-alliances-demo.vercel.app/" },
+          { icon: "globe", title: "IES", subtitle: "Business services", url: "https://ies-demo-nine.vercel.app/" },
+        ],
+
+        services: {
+          title: "What I Do",
+          desc: "Everything a small business needs to look credible online — designed, built and launched. Hand-coded, lightweight and ready to grow.",
+          items: [
+            "Clean web design & branding",
+            "Responsive HTML, CSS & JavaScript",
+            "Fast pages with SEO built in",
+            "Launch, PWA & ongoing support",
+          ],
+          cta: { label: "Start a project", icon: "send", email: true },   // email:true → mailto link
+        },
+
+        contactSection: {
+          title: "Have a project in mind?",
+          note: "Usually reply within one business day.",
+          rows: [
+            { label: "Email", icon: "mail", value: "hello@example.com", href: "mailto:hello@example.com" },
+            { label: "WhatsApp", icon: "phone", value: "+91 98765 43210", href: "wa" },
+          ],
+          cta: { label: "Send a message on WhatsApp", icon: "whatsapp", whatsapp: true },
+        },
+
+        socials: [
+          { id: "github", label: "GitHub", url: "#", placeholder: true },
+          { id: "whatsapp", label: "WhatsApp", url: "#", placeholder: true },  // real wa.me link is auto-built
+          { id: "email", label: "Email", url: "mailto:hello@example.com" },
+        ],
+
+        footer: {
+          text: "© {year} SD — Web Developer Portfolio",
+        },
+      };
+
+      /* ====================================================================
+         Inline SVG registry — shared by the links list and the social row so
+         each icon renders from exactly one definition.
+      ==================================================================== */
+      const ICONS = {
+        arrow:
+          '<path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
+          '<path d="m13 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+        whatsapp:
+          '<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>',
+        globe:
+          '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>' +
+          '<path d="M3 12h18" fill="none" stroke="currentColor" stroke-width="1.8"/>' +
+          '<path d="M12 3c2.5 2.5 3.8 5.7 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3Z" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+        chevron:
+          '<path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+        check:
+          '<path d="m20 6-11 11-5-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
+        phone:
+          '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+        clock:
+          '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>' +
+          '<path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+        mail:
+          '<rect x="3.2" y="5" width="17.6" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>' +
+          '<path d="m4 8 8 5.5L20 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+        send:
+          '<path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '<path d="M22 2 15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+        chat:
+          '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+        rocket:
+          '<path d="M4.5 16.5c-2 1.2-3.5 5-3.5 5s3.8-1.5 5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '<circle cx="14.5" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>' +
+          '<path d="M13 11.5 8 16.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>' +
+          '<path d="M14 19c3.5 3.5 8 4 8 4 0-3.5-.5-7.5-3.5-10.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+        github:
+          '<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+      };
+
+      /* ---------- Helpers ---------- */
+      const SVG_NS = "http://www.w3.org/2000/svg";
+
+      function el(tag, attrs, children) {
+        const node = document.createElement(tag);
+        for (const [key, value] of Object.entries(attrs || {})) {
+          if (value === null || value === undefined) continue;
+          if (key === "class") node.className = value;
+          else node.setAttribute(key, value);
+        }
+        if (children === null || children === undefined) children = [];
+        else if (!Array.isArray(children)) children = [children];
+        children.forEach(function (child) {
+          node.appendChild(typeof child === "string" ? document.createTextNode(child) : child);
+        });
+        return node;
+      }
+
+      function svgIcon(id) {
+        const svg = document.createElementNS(SVG_NS, "svg");
+        svg.setAttribute("viewBox", "0 0 24 24");
+        svg.setAttribute("aria-hidden", "true");
+        svg.setAttribute("focusable", "false");
+        svg.innerHTML = ICONS[id] || "";
+        return svg;
+      }
+
+      function slugify(str) {
+        return String(str || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      }
+
+      function analyticsId(kind, name) {
+        return [CONFIG.analytics.prefix, kind, slugify(name)].filter(Boolean).join("-");
+      }
+
+      function isExternal(url) {
+        return /^https?:\/\//i.test(url);
+      }
+
+      function waUrl() {
+        return CONFIG.contact && CONFIG.contact.whatsapp ? "https://wa.me/" + CONFIG.contact.whatsapp : "#";
+      }
+
+      function ctaUrl(c) {
+        return c.whatsapp ? waUrl() : (c.url || "#");
+      }
+
+      function socialUrl(s) {
+        if (s.id === "whatsapp") return waUrl();
+        if (s.id === "email") return "mailto:" + CONFIG.contact.email;
+        return s.url || "#";
+      }
+
+      function linkUrl(link) {
+        return link.url || "#";
+      }
+
+      function applyHref(a, url, placeholder) {
+        a.href = url;
+        if (isExternal(url)) {
+          a.setAttribute("target", "_blank");
+          a.setAttribute("rel", "noopener");
+        }
+        if (placeholder) {
+          a.addEventListener("click", function (event) { event.preventDefault(); });
+        }
+      }
+
+      /* ====================================================================
+         Section builders
+      ==================================================================== */
+      function buildProfile(cfg) {
+        const header = el("header", { class: "profile" });
+
+        let avatar;
+        if (cfg.avatar.image) {
+          avatar = el("span", { class: "avatar" }, [
+            el("img", { class: "avatar-img", src: cfg.avatar.image, alt: cfg.avatar.imageAlt, width: "96", height: "96" }),
+          ]);
+        } else {
+          avatar = el("span", { class: "avatar", "aria-hidden": "true" }, [
+            el("span", { class: "avatar-initials" }, cfg.avatar.initials),
+          ]);
+        }
+        header.appendChild(avatar);
+        header.appendChild(el("h1", { class: "profile-name" }, cfg.name));
+        header.appendChild(el("p", { class: "clinic-name" }, cfg.role));
+        header.appendChild(el("p", { class: "bio" }, cfg.bio));
+
+        if (cfg.badge) {
+          const badge = el("span", { class: "verified-badge" }, [svgIcon("check"), "Available for new projects"]);
+          header.appendChild(badge);
+        }
+        return header;
+      }
+
+      function buildCtas(cfg) {
+        const group = el("div", { class: "cta-group" });
+        cfg.forEach(function (c) {
+          const url = ctaUrl(c);
+          const a = el("a", { class: "btn btn-" + c.variant, "data-analytics-id": analyticsId("cta", c.label), "aria-label": c.label }, [svgIcon(c.icon), el("span", {}, c.label)]);
+          applyHref(a, url, !!c.placeholder);
+          group.appendChild(a);
+        });
+        return group;
+      }
+
+      function buildLinks(title, items) {
+        const nav = el("nav", { "aria-label": "Selected work" });
+        nav.appendChild(el("p", { class: "section-label" }, title));
+        const card = el("div", { class: "links-card" });
+        items.forEach(function (link) {
+          const a = el("a", { class: "link-item", "data-analytics-id": analyticsId("link", link.title) }, [
+            el("span", { class: "link-icon", "aria-hidden": "true" }, [svgIcon(link.icon)]),
+            el("span", { class: "link-text" }, [
+              el("span", { class: "link-title" }, link.title),
+              el("span", { class: "link-sub" }, link.subtitle),
+            ]),
+            el("span", { class: "link-chevron", "aria-hidden": "true" }, [svgIcon("chevron")]),
+          ]);
+          applyHref(a, linkUrl(link), !!link.placeholder);
+          card.appendChild(a);
+        });
+        nav.appendChild(card);
+        return nav;
+      }
+
+      function buildServices(cfg) {
+        const section = el("section", { "aria-label": "Services" });
+        section.appendChild(el("p", { class: "section-label" }, "Services"));
+
+        const card = el("div", { class: "app-card" });
+        card.appendChild(el("span", { class: "app-mark", "aria-hidden": "true" }, [svgIcon("rocket")]));
+        card.appendChild(el("h2", { class: "app-title" }, cfg.title));
+        card.appendChild(el("p", { class: "app-desc" }, cfg.desc));
+
+        const list = el("ul", { class: "service-list" });
+        cfg.items.forEach(function (item) {
+          list.appendChild(el("li", {}, [svgIcon("check"), document.createTextNode(item)]));
+        });
+        card.appendChild(list);
+
+        const href = cfg.cta.email ? "mailto:" + CONFIG.contact.email : (cfg.cta.whatsapp ? waUrl() : (cfg.cta.url || "#"));
+        const cta = el("a", { class: "btn btn-primary app-download", href: href, "data-analytics-id": analyticsId("cta", cfg.cta.label) }, [svgIcon(cfg.cta.icon), el("span", {}, cfg.cta.label)]);
+        applyHref(cta, href, false);
+        card.appendChild(cta);
+
+        section.appendChild(card);
+        return section;
+      }
+
+      function buildContact(cfg) {
+        const section = el("section", { "aria-label": "Contact" });
+        section.appendChild(el("p", { class: "section-label" }, "Contact"));
+
+        const card = el("div", { class: "info-card" });
+        card.appendChild(el("h2", { class: "card-head" }, [svgIcon("chat"), cfg.title]));
+
+        cfg.rows.forEach(function (row) {
+          let value;
+          if (row.href === "wa") value = el("a", { class: "info-value", href: waUrl() }, row.value);
+          else if (row.href) value = el("a", { class: "info-value", href: row.href }, row.value);
+          else value = el("span", { class: "info-value" }, row.value);
+
+          card.appendChild(el("div", { class: "info-row" }, [
+            el("span", { class: "info-icon", "aria-hidden": "true" }, [svgIcon(row.icon)]),
+            el("span", { class: "info-text" }, [el("span", { class: "info-label" }, row.label), value]),
+          ]));
+        });
+
+        card.appendChild(el("p", { class: "info-note" }, cfg.note));
+
+        const btnHref = cfg.cta.whatsapp ? waUrl() : (cfg.cta.url || "#");
+        const btn = el("a", { class: "maps-btn", href: btnHref, "data-analytics-id": analyticsId("cta", cfg.cta.label) }, [svgIcon(cfg.cta.icon), cfg.cta.label]);
+        applyHref(btn, btnHref, false);
+        card.appendChild(btn);
+
+        section.appendChild(card);
+        return section;
+      }
+
+      function buildSocials(cfg) {
+        const nav = el("nav", { "aria-label": "Follow me online" });
+        const row = el("div", { class: "social-row" });
+        cfg.forEach(function (s) {
+          const url = socialUrl(s);
+          const isPlaceholder = s.id !== "whatsapp" && s.placeholder;
+          const btn = el("a", { class: "social-btn", "data-brand": s.id, "data-analytics-id": analyticsId("social", s.id), "aria-label": s.label }, [svgIcon(s.id)]);
+          applyHref(btn, url, isPlaceholder);
+          row.appendChild(btn);
+        });
+        nav.appendChild(row);
+        return nav;
+      }
+
+      function buildFooter(cfg) {
+        const footer = el("footer");
+        footer.appendChild(el("hr", { class: "divider", "aria-hidden": "true" }));
+        footer.appendChild(el("p", { class: "copyright" }, cfg.text.replace("© {year}", "© " + new Date().getFullYear())));
+        return footer;
+      }
+
+      /* ====================================================================
+         Head metadata sync (config is the single source of truth at runtime).
+      ==================================================================== */
+      function syncHeadMeta(config) {
+        document.title = config.site.title;
+        const set = function (prop, key, value) {
+          const meta = document.querySelector(prop === "property" ? 'meta[property="' + key + '"]' : 'meta[name="' + key + '"]');
+          if (meta) meta.setAttribute("content", value);
+        };
+        set("name", "description", config.site.description);
+        set("name", "theme-color", config.brand.themeColor);
+        set("property", "og:title", config.site.title);
+        set("property", "og:description", config.site.description);
+        set("property", "og:url", config.site.url);
+        set("property", "og:site_name", config.site.title);
+        set("property", "og:locale", config.site.locale);
+        set("name", "twitter:title", config.site.title);
+        set("name", "twitter:description", config.site.description);
+      }
+
+      /* ====================================================================
+         Placeholder audit — every link that still needs a real URL is
+         console.warn'd on load, so a "#" is never shipped silently.
+      ==================================================================== */
+      function auditPlaceholders(config) {
+        const pending = [];
+        function note(kind, label, url) {
+          if (url === "#" || url === "") pending.push({ kind: kind, label: label, url: url || "#" });
+        }
+        config.ctas.forEach(function (c) { note("CTA", '"' + c.label + '"', ctaUrl(c)); });
+        config.links.forEach(function (l) { note("link", l.title, linkUrl(l)); });
+        note("app service CTA", config.services.cta.label, config.services.cta.email ? "mailto:" + config.contact.email : (config.services.cta.url || "#"));
+        config.contactSection.rows.forEach(function (r) { note("contact", r.label, r.href === "wa" ? waUrl() : (r.href || "#")); });
+        config.socials.forEach(function (s) { note("social", s.label, socialUrl(s)); });
+        if (/9876543210/.test(config.contact.whatsapp)) pending.push({ kind: "whatsapp", label: config.contact.whatsappDisplay, url: "number is still a placeholder" });
+
+        if (pending.length) {
+          const lines = pending.map(function (p) { return "  - (" + p.kind + ") " + p.label + " -> " + p.url; });
+          console.warn("[config] " + pending.length + " placeholder link(s) still need a real URL:\n" + lines.join("\n"));
+        } else {
+          console.info("[config] All links configured — no placeholders remaining.");
+        }
+      }
+
+      /* ====================================================================
+         Init
+      ==================================================================== */
+      function mount(id, node) {
+        document.getElementById(id).appendChild(node);
+      }
+
+      mount("profile-mount", buildProfile(CONFIG.profile));
+      mount("cta-mount", buildCtas(CONFIG.ctas));
+      mount("links-mount", buildLinks(CONFIG.linksTitle, CONFIG.links));
+      mount("services-mount", buildServices(CONFIG.services));
+      mount("contact-mount", buildContact(CONFIG.contactSection));
+      mount("socials-mount", buildSocials(CONFIG.socials));
+      mount("footer-mount", buildFooter(CONFIG.footer));
+
+      syncHeadMeta(CONFIG);
+      auditPlaceholders(CONFIG);
+
+      // Installable-app support: register the service worker from sw.js so
+      // browsers offer "Add to Home Screen / Install" and the page caches
+      // offline. Guarded — fails silently on file://, http:// or old browsers.
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("sw.js").catch(function (err) {
+            console.warn("[pwa] service worker registration failed:", err);
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+
+</html>
