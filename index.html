@@ -75,8 +75,6 @@
       <!-- Social row (buildSocials renders a <nav> landmark) -->
       <div class="section" id="socials-mount"></div>
     </main>
-
-    <footer id="footer-mount"></footer>
   </div>
 
   <script>
@@ -166,10 +164,6 @@
           { id: "threads", label: "Threads", url: "https://www.threads.com/@socialdrishti" },
           { id: "youtube", label: "YouTube", url: "https://www.youtube.com/@socialdrishti" },
         ],
-
-        footer: {
-          text: "© {2026} Social Drishti | Web Developer Portfolio",
-        },
       };
 
       /* ====================================================================
@@ -196,6 +190,9 @@
           '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>' +
           '<path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
         mail:
+          '<rect x="3.2" y="5" width="17.6" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>' +
+          '<path d="m4 8 8 5.5L20 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+        email:
           '<rect x="3.2" y="5" width="17.6" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>' +
           '<path d="m4 8 8 5.5L20 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
         send:
@@ -424,13 +421,6 @@
         return nav;
       }
 
-      function buildFooter(cfg) {
-        const footer = el("footer");
-        footer.appendChild(el("hr", { class: "divider", "aria-hidden": "true" }));
-        footer.appendChild(el("p", { class: "copyright" }, cfg.text.replace("© {year}", "© " + new Date().getFullYear())));
-        return footer;
-      }
-
       /* ====================================================================
          Head metadata sync (config is the single source of truth at runtime).
       ==================================================================== */
@@ -488,7 +478,6 @@
       mount("services-mount", buildServices(CONFIG.services));
       mount("contact-mount", buildContact(CONFIG.contactSection));
       mount("socials-mount", buildSocials(CONFIG.socials));
-      mount("footer-mount", buildFooter(CONFIG.footer));
 
       syncHeadMeta(CONFIG);
       auditPlaceholders(CONFIG);
