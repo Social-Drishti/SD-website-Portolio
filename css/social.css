@@ -14,7 +14,7 @@
   border-radius: 50%;
   background: var(--white);
   border: 1px solid var(--border);
-  color: var(--navy);
+  color: var(--ink);
   display: grid;
   place-items: center;
   transition: color 120ms ease, background-color 120ms ease, border-color 120ms ease, transform 120ms ease;
@@ -41,4 +41,20 @@
 
 .social-btn[data-brand="email"]:hover {
   background: var(--brand-email);
+}
+
+.social-btn[data-brand="instagram"]:hover {
+  background: var(--brand-instagram);
+}
+
+.social-btn[data-brand="linkedin"]:hover {
+  background: var(--brand-linkedin);
+}
+
+.social-btn[data-brand="threads"]:hover {
+  background: var(--brand-threads);
+}
+
+.social-btn[data-brand="youtube"]:hover {
+  background: var(--brand-youtube);
 }

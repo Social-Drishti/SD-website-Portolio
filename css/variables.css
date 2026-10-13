@@ -5,34 +5,35 @@
    never hardcode a raw color value in the other css/ files.
 ================================================================ */
 :root {
-  /* Primary brand colors */
-  --navy: #0d1f6e;
-  --navy-dark: #091654;
-  --navy-light: #1a2f8c;
+  /* Primary brand colors — ink (near-black) */
+  --ink: #111111;
+  --ink-dark: #000000;
+  --ink-light: #333333;
   --white: #ffffff;
 
-  /* Accent for CTAs */
-  --teal: #14b8a6;
-  --teal-dark: #0f9488;
+  /* Accent for CTAs (gold) */
+  --accent: #f1b143;
+  --accent-dark: #b5781c;
 
   /* Neutrals */
-  --bg: #f7f8fb;
+  --bg: #f9eed8;
+  /* Background image (matches --bg tone; assets/bg.webp) */
+  --bg-image: url("../assets/bg.webp");
   --text-primary: #101828;
   --text-secondary: #667085;
   --border: #e4e7ec;
   --success: #17b26a;
 
   /* Derived tints (palette-based) */
-  --teal-tint: #e6f8f5;
-  --teal-tint-deep: #d0efe9;
+  --accent-tint: #fdf1da;
+  --accent-tint-deep: #fbe4b8;
   --success-tint: #e8f6ef;
 
   /* Alpha tints of brand colors — keeps rgba() out of components */
-  --teal-10: rgba(20, 184, 166, 0.1);
-  --teal-30: rgba(20, 184, 166, 0.3);
-  --teal-45: rgba(20, 184, 166, 0.45);
-  --teal-60: rgba(20, 184, 166, 0.6);
-  --navy-06: rgba(13, 31, 110, 0.06);
+  --accent-30: rgba(241, 177, 67, 0.3);
+  --accent-45: rgba(241, 177, 67, 0.45);
+  --accent-60: rgba(241, 177, 67, 0.6);
+  --ink-06: rgba(0, 0, 0, 0.06);
   --success-30: rgba(23, 178, 106, 0.3);
   --white-10: rgba(255, 255, 255, 0.1);
   --white-74: rgba(255, 255, 255, 0.74);
@@ -40,7 +41,11 @@
   /* Social brand colors (hover fills for the social row) */
   --brand-github: #181717;
   --brand-whatsapp: #25d366;
-  --brand-email: #14b8a6;
+  --brand-email: #b5781c;
+  --brand-instagram: #e1306c;
+  --brand-linkedin: #0a66c2;
+  --brand-threads: #000000;
+  --brand-youtube: #ff0000;
 
   /* Typography */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -49,8 +54,8 @@
   --radius-lg: 20px;
   --radius-md: 14px;
   --radius-sm: 10px;
-  --shadow: 0 1px 2px rgba(13, 31, 110, 0.05), 0 12px 30px -14px rgba(13, 31, 110, 0.22);
-  --shadow-sm: 0 1px 2px rgba(13, 31, 110, 0.06);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 12px 30px -14px rgba(0, 0, 0, 0.22);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
   --maxw: 460px;
-  --ring: 3px solid var(--teal-45);
+  --ring: 3px solid var(--accent-45);
 }

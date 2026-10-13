@@ -1,8 +1,8 @@
 /* ================================================================
-   App card — dark navy "What I Do" card + service list
+   App card — dark "What I Do" card + service list
 ================================================================ */
 .app-card {
-  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-dark) 100%);
+  background: linear-gradient(160deg, var(--ink) 0%, var(--ink-dark) 100%);
   color: var(--white);
   border-radius: var(--radius-lg);
   padding: 22px 20px;
@@ -59,9 +59,15 @@
 .service-list svg {
   width: 16px;
   height: 16px;
-  color: var(--teal);
+  color: var(--accent);
   flex-shrink: 0;
   margin-top: 2px;
+}
+
+.app-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .app-download {

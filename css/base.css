@@ -11,7 +11,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--bg-image) center / cover no-repeat fixed, var(--bg);
   color: var(--text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -39,7 +39,7 @@ svg {
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--navy);
+  background: var(--ink);
   color: var(--white);
   padding: 10px 16px;
   border-radius: 0 0 8px 0;

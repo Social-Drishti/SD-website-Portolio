@@ -1,18 +1,128 @@
 /* ================================================================
-   Responsive — desktop / larger-screen refinements.
+   Responsive — tablet & desktop refinements.
    Mobile-first: the base styles in the other files target small
-   screens; this file only adds min-width tweaks for when the 460px
-   card is centred on a wider viewport.
+   screens; this file widens the single-column card layout into a
+   roomier tablet view and a two-column desktop view (sticky profile
+   beside the scrolling content).
 ================================================================ */
+
+/* ---------- Tablet: single column, wider + airier ---------- */
 @media (min-width: 620px) {
   body {
     background:
-      radial-gradient(620px 420px at 18% 4%, var(--teal-10), transparent 62%),
-      radial-gradient(520px 400px at 88% 96%, var(--navy-06), transparent 62%),
+      radial-gradient(520px 400px at 88% 96%, var(--ink-06), transparent 62%),
+      var(--bg-image) center / cover no-repeat fixed,
       var(--bg);
   }
 
   .page {
-    padding: 52px 18px 64px;
+    max-width: 680px;
+    padding: 52px 24px 64px;
+  }
+
+  .section {
+    margin-top: 36px;
+  }
+
+  /* Two columns of project links once there is room for them. */
+  .links-card {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .app-card {
+    padding: 28px 26px;
+  }
+
+  .app-title {
+    font-size: 20px;
+  }
+
+  .info-card {
+    padding: 24px 22px;
+  }
+}
+
+/* ---------- Desktop: two-column layout ---------- */
+@media (min-width: 1024px) {
+  .page {
+    max-width: 1040px;
+    display: grid;
+    grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+    grid-template-areas:
+      "profile main"
+      "profile footer";
+    column-gap: 48px;
+    align-items: start;
+    padding: 64px 36px 80px;
+  }
+
+  /* Profile sits in the left column and sticks while content scrolls. */
+  .profile {
+    grid-area: profile;
+    position: sticky;
+    top: 48px;
+    text-align: left;
+  }
+
+  /* Sit the transparent brand mark on a light plate so the gold artwork
+     never blends into the cream background image at desktop widths. */
+  .avatar {
+    margin-left: 0;
+    padding: 14px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .avatar img {
+    width: 112px;
+    height: 112px;
+  }
+
+  .profile-name {
+    font-size: 30px;
+  }
+
+  .bio {
+    font-size: 15.5px;
+    max-width: 40ch;
+    margin-left: 0;
+  }
+
+  main {
+    grid-area: main;
+  }
+
+  /* Align the first section with the top of the profile column. */
+  main > .section:first-child {
+    margin-top: 0;
+  }
+
+  /* Two CTAs sit side-by-side instead of stacked. */
+  .cta-group {
+    flex-direction: row;
+  }
+
+  .cta-group .btn {
+    flex: 1;
+  }
+
+  footer {
+    grid-area: footer;
+    margin-top: 44px;
+  }
+}
+
+/* ---------- Large desktop: a touch more breathing room ---------- */
+@media (min-width: 1280px) {
+  .page {
+    max-width: 1140px;
+    grid-template-columns: minmax(320px, 400px) minmax(0, 1fr);
+    column-gap: 64px;
+  }
+
+  .links-card {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

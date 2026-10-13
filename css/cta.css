@@ -11,22 +11,22 @@
 }
 
 .btn-primary {
-  background: var(--teal);
-  color: var(--white);
-  box-shadow: 0 10px 24px -12px var(--teal-60);
+  background: var(--accent);
+  color: var(--ink);
+  box-shadow: 0 10px 24px -12px var(--accent-60);
 }
 
 .btn-primary:hover {
-  background: var(--teal-dark);
+  background: var(--accent-dark);
 }
 
 .btn-outline {
   background: var(--white);
-  color: var(--teal-dark);
-  border: 1.5px solid var(--teal);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
 }
 
 .btn-outline:hover {
-  background: var(--teal-tint);
-  border-color: var(--teal-dark);
+  background: var(--accent-tint);
+  border-color: var(--accent-dark);
 }

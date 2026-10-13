@@ -1,32 +1,32 @@
 {
-  "name": "SD — Web Developer Portfolio",
-  "short_name": "SD Portfolio",
+  "name": "Social Drishti | Web Developer Portfolio",
+  "short_name": "Social Drishti Portfolio",
   "description": "Websites that work as hard as your business. Fast, responsive, conversion-focused builds for small businesses.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#F7F8FB",
-  "theme_color": "#0D1F6E",
+  "background_color": "#F9EED8",
+  "theme_color": "#111111",
   "lang": "en",
   "dir": "ltr",
   "categories": ["portfolio", "business", "website"],
   "icons": [
     {
-      "src": "assets/icon-192.png",
+      "src": "assets/logo.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "assets/icon-512.png",
+      "src": "assets/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "assets/icon-512.png",
+      "src": "assets/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
